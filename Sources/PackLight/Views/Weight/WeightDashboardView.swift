@@ -83,6 +83,12 @@ struct WeightDashboardView: View {
                 }
                 .onChange(of: trip) { _, _ in viewModel.recalculate() }
             }
+
+            item {
+                NavigationLink(destination: WeightHistoryView()) {
+                    Label("Weight History", systemImage: "chart.line.uptrend.xyaxis")
+                }
+            }
         }
         .navigationTitle("Weight")
     }

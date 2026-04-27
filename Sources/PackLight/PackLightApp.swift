@@ -21,6 +21,7 @@ struct PackLightApp: App {
             PackListItem.self,
             ResupplyPoint.self,
             ResupplyPointItem.self,
+            WeightSnapshot.self,
         ])
         #if os(macOS)
         .commands {

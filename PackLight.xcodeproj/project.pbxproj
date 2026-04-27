@@ -19,6 +19,7 @@
 		4826D98BEF8B2204E3E795EF /* ImportExportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48CCE4571C1271F943DE259A /* ImportExportView.swift */; };
 		4BDF5CA78357B550D85A3B07 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC63A652C730DC930EFA673 /* OnboardingView.swift */; };
 		650113CEC3AFC52AF5BCCE36 /* RecommendationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F77C1AC8AC8B6506351F68 /* RecommendationsView.swift */; };
+		711F52C67AB0B44A94B9991C /* WeightHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320FCBE7C94A255779A1544D /* WeightHistoryView.swift */; };
 		78AA6B94AA2146029CE8D612 /* TripDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7205B0664D8AC5F784543FC /* TripDetailView.swift */; };
 		791F8AC6D065347C26B7ACCA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7317D8439BC47B173D309D1A /* ContentView.swift */; };
 		7E8FE854F35CF0233C89EC02 /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A900FE738EE28D3715A326 /* Trip.swift */; };
@@ -27,6 +28,7 @@
 		8F46624664195943E193E056 /* ResupplyPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24319E4AE9F54635E1314A4D /* ResupplyPoint.swift */; };
 		8F97F806C2A9E5D73CC3DADC /* GearCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FEBF16658806D969B6E782F /* GearCategory.swift */; };
 		95E58C97F8A1AF11DFB96ABB /* WeightParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6B318A10C423CAD18F76EB9 /* WeightParser.swift */; };
+		9851FCE2FCA5522E068CCCC7 /* WeightSnapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FADB72BB1B778C85254CC7A /* WeightSnapshot.swift */; };
 		9C7B582F207627E44062C746 /* TripViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01799269E9B20A07B3389F29 /* TripViewModel.swift */; };
 		9CFB254E6DCC2BB083C27F28 /* URLMetadataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5205F147776191943350469 /* URLMetadataFetcher.swift */; };
 		A92E414B0EB1C999D0ED9D2D /* AddGearItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D56F24266F0F5A6FE7D238D /* AddGearItemView.swift */; };
@@ -59,10 +61,12 @@
 		0AA796E1C1085C06E1C07199 /* AddTripView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTripView.swift; sourceTree = "<group>"; };
 		19E8D60E2BF595F49CAC7F53 /* AppRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRootView.swift; sourceTree = "<group>"; };
 		1F3AF89038C06DD5E2EACB0F /* WeightCalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightCalculatorTests.swift; sourceTree = "<group>"; };
+		1FADB72BB1B778C85254CC7A /* WeightSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightSnapshot.swift; sourceTree = "<group>"; };
 		24319E4AE9F54635E1314A4D /* ResupplyPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResupplyPoint.swift; sourceTree = "<group>"; };
 		24DB2E3E10099ED387752E70 /* GearItemDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GearItemDetailView.swift; sourceTree = "<group>"; };
 		2535A0FB9DD3964445493100 /* PackLightTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = PackLightTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		31F77C1AC8AC8B6506351F68 /* RecommendationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationsView.swift; sourceTree = "<group>"; };
+		320FCBE7C94A255779A1544D /* WeightHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightHistoryView.swift; sourceTree = "<group>"; };
 		3E80124F744D685A3EA8501B /* WeightCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightCalculator.swift; sourceTree = "<group>"; };
 		3FEBF16658806D969B6E782F /* GearCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GearCategory.swift; sourceTree = "<group>"; };
 		43C309B853934E95180A8C5A /* GearRecommendationEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GearRecommendationEngine.swift; sourceTree = "<group>"; };
@@ -115,6 +119,7 @@
 				937DEA7098F59E1662EEC46F /* PackListItem.swift */,
 				24319E4AE9F54635E1314A4D /* ResupplyPoint.swift */,
 				B7A900FE738EE28D3715A326 /* Trip.swift */,
+				1FADB72BB1B778C85254CC7A /* WeightSnapshot.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -243,6 +248,7 @@
 			isa = PBXGroup;
 			children = (
 				B8B99CC96ADEA84B7D041AA4 /* WeightDashboardView.swift */,
+				320FCBE7C94A255779A1544D /* WeightHistoryView.swift */,
 			);
 			path = Weight;
 			sourceTree = "<group>";
@@ -373,7 +379,9 @@
 				9CFB254E6DCC2BB083C27F28 /* URLMetadataFetcher.swift in Sources */,
 				8040608940C0561C387CE24D /* WeightCalculator.swift in Sources */,
 				ACA71AB2A0F102F01D19DA8F /* WeightDashboardView.swift in Sources */,
+				711F52C67AB0B44A94B9991C /* WeightHistoryView.swift in Sources */,
 				95E58C97F8A1AF11DFB96ABB /* WeightParser.swift in Sources */,
+				9851FCE2FCA5522E068CCCC7 /* WeightSnapshot.swift in Sources */,
 				F928EBF6F92E41531614FBDE /* WeightViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
