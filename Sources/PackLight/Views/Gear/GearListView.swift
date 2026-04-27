@@ -34,9 +34,20 @@ struct GearListView: View {
                     }
                 }
             }
+            ToolbarItem(placement: .secondaryAction) {
+                Menu("More", systemImage: "ellipsis.circle") {
+                    Button("Import from Lighterpack", systemImage: "square.and.arrow.down") {
+                        viewModel.showingImportSheet = true
+                    }
+                    ExportButton(items: allItems)
+                }
+            }
         }
         .sheet(isPresented: $vm.showingAddSheet) {
             AddGearItemView()
+        }
+        .sheet(isPresented: $vm.showingImportSheet) {
+            ImportCSVView()
         }
     }
 }

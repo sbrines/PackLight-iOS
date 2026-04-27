@@ -19,6 +19,7 @@ final class GearViewModel {
     var selectedCategory: GearCategory? = nil
     var sortOption: GearSortOption = .nameAscending
     var showingAddSheet = false
+    var showingImportSheet = false
     var isFetchingURL = false
     var urlFetchError: String? = nil
 
