@@ -7,6 +7,12 @@ struct ContentView: View {
     @State private var weightViewModel = WeightViewModel()
 
     var body: some View {
+        #if os(macOS)
+        MacContentView()
+            .environment(gearViewModel)
+            .environment(tripViewModel)
+            .environment(weightViewModel)
+        #else
         TabView {
             NavigationStack {
                 GearListView()
@@ -26,5 +32,6 @@ struct ContentView: View {
             .tabItem { Label("Weight", systemImage: "scalemass.fill") }
             .environment(weightViewModel)
         }
+        #endif
     }
 }
