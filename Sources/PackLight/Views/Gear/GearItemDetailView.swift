@@ -1,0 +1,40 @@
+import SwiftUI
+
+struct GearItemDetailView: View {
+    @Bindable var item: GearItem
+    @Environment(\.modelContext) private var context
+
+    var body: some View {
+        List {
+            Section("Weight") {
+                LabeledContent("Weight", value: item.displayWeight)
+                LabeledContent("In ounces", value: String(format: "%.2f oz", item.weightOunces))
+            }
+            Section("Details") {
+                LabeledContent("Brand", value: item.brand.isEmpty ? "—" : item.brand)
+                LabeledContent("Category", value: item.category.rawValue)
+                LabeledContent("Quantity owned", value: "\(item.quantityOwned)")
+                LabeledContent("Consumable", value: item.isConsumable ? "Yes" : "No")
+            }
+            if !item.notes.isEmpty {
+                Section("Notes") {
+                    Text(item.notes)
+                }
+            }
+            if !item.purchaseURL.isEmpty {
+                Section("Purchase URL") {
+                    if let url = URL(string: item.purchaseURL) {
+                        Link(item.purchaseURL, destination: url)
+                            .lineLimit(1)
+                            .font(.caption)
+                    }
+                }
+            }
+        }
+        .navigationTitle(item.name)
+        .navigationBarTitleDisplayMode(.large)
+        .toolbar {
+            NavigationLink("Edit", destination: AddGearItemView(existingItem: item))
+        }
+    }
+}
