@@ -1,0 +1,45 @@
+included:
+  - Sources
+
+excluded:
+  - Sources/PackLight/Info.plist
+
+disabled_rules:
+  - trailing_whitespace      # formatter handles this
+  - line_length              # we allow slightly longer lines for SwiftUI chains
+  - function_body_length     # SwiftUI body properties can run long
+  - type_body_length         # models with many properties
+
+opt_in_rules:
+  - force_unwrapping
+  - empty_count
+  - closure_spacing
+  - explicit_init
+  - redundant_nil_coalescing
+  - sorted_imports
+
+# Thresholds
+file_length:
+  warning: 400
+  error: 600
+
+function_parameter_count:
+  warning: 6
+  error: 8
+
+cyclomatic_complexity:
+  warning: 15
+  error: 25
+
+identifier_name:
+  min_length:
+    warning: 2
+  excluded:
+    - id
+    - vm
+    - db
+    - oz
+    - g
+
+force_cast: warning
+force_try: warning

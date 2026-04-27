@@ -1,0 +1,65 @@
+name: iOS CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    name: SwiftLint
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install SwiftLint
+        run: brew install swiftlint
+
+      - name: Run SwiftLint
+        run: swiftlint lint --reporter github-actions-logging Sources/
+
+  build-and-test:
+    name: Build & Test (iOS)
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode_16.app
+
+      - name: Install xcodegen
+        run: brew install xcodegen
+
+      - name: Generate Xcode project
+        run: xcodegen generate
+
+      - name: Resolve packages
+        run: xcodebuild -resolvePackageDependencies
+          -project PackLight.xcodeproj
+          -scheme PackLight
+
+      - name: Build for testing
+        run: xcodebuild build-for-testing
+          -project PackLight.xcodeproj
+          -scheme PackLight
+          -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest'
+          -derivedDataPath DerivedData
+          CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
+
+      - name: Run unit tests
+        run: xcodebuild test-without-building
+          -project PackLight.xcodeproj
+          -scheme PackLight
+          -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest'
+          -derivedDataPath DerivedData
+          -resultBundlePath TestResults.xcresult
+          CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-ios
+          path: TestResults.xcresult
+          retention-days: 7
