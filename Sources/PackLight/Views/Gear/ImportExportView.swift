@@ -2,34 +2,65 @@ import SwiftUI
 import SwiftData
 import UniformTypeIdentifiers
 
+// Cross-platform export using FileDocument + .fileExporter (works on iOS and macOS)
+
+struct CSVDocument: FileDocument {
+    static var readableContentTypes: [UTType] { [.commaSeparatedText, .plainText] }
+    var content: String
+
+    init(content: String) { self.content = content }
+
+    init(configuration: ReadConfiguration) throws {
+        content = String(data: configuration.file.regularFileContents ?? Data(),
+                         encoding: .utf8) ?? ""
+    }
+
+    func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
+        FileWrapper(regularFileWithContents: content.data(using: .utf8) ?? Data())
+    }
+}
+
 struct ExportButton: View {
     let items: [GearItem]
+    let filename: String
 
     @State private var isExporting = false
-    @State private var exportURL: URL? = nil
+
+    init(items: [GearItem], filename: String = "packlight-gear") {
+        self.items = items
+        self.filename = filename
+    }
 
     var body: some View {
         Button("Export to CSV", systemImage: "square.and.arrow.up") {
-            exportURL = writeCSV()
-            isExporting = exportURL != nil
+            isExporting = true
         }
-        .sheet(isPresented: $isExporting) {
-            if let url = exportURL {
-                ShareSheetView(items: [url])
-            }
-        }
+        .fileExporter(
+            isPresented: $isExporting,
+            document: CSVDocument(content: LighterpackService.export(items: items)),
+            contentType: .commaSeparatedText,
+            defaultFilename: filename
+        ) { _ in }
     }
+}
 
-    private func writeCSV() -> URL? {
-        let csv = LighterpackService.export(items: items)
-        let url = FileManager.default.temporaryDirectory
-            .appendingPathComponent("packlight-gear.csv")
-        do {
-            try csv.write(to: url, atomically: true, encoding: .utf8)
-            return url
-        } catch {
-            return nil
+struct PackListShareButton: View {
+    let packList: PackList
+
+    @State private var isExporting = false
+
+    var body: some View {
+        Button("Export Pack List", systemImage: "square.and.arrow.up") {
+            isExporting = true
         }
+        .fileExporter(
+            isPresented: $isExporting,
+            document: CSVDocument(content: LighterpackService.exportPackList(packList: packList)),
+            contentType: .commaSeparatedText,
+            defaultFilename: packList.name
+                .lowercased()
+                .replacingOccurrences(of: " ", with: "-")
+        ) { _ in }
     }
 }
 
@@ -45,6 +76,7 @@ struct ImportCSVView: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 24) {
+                Spacer()
                 Image(systemName: "doc.badge.plus")
                     .font(.system(size: 64))
                     .foregroundStyle(.secondary)
@@ -52,7 +84,7 @@ struct ImportCSVView: View {
                 VStack(spacing: 8) {
                     Text("Import from Lighterpack")
                         .font(.title2.bold())
-                    Text("Import a CSV exported from Lighterpack.com or any compatible app.")
+                    Text("Import a CSV exported from Lighterpack.com\nor any compatible app.")
                         .multilineTextAlignment(.center)
                         .foregroundStyle(.secondary)
                         .font(.subheadline)
@@ -69,6 +101,7 @@ struct ImportCSVView: View {
                         .foregroundStyle(.red)
                         .font(.caption)
                 }
+                Spacer()
             }
             .padding(32)
             .navigationTitle("Import Gear")
@@ -80,7 +113,7 @@ struct ImportCSVView: View {
             }
             .fileImporter(
                 isPresented: $isPickingFile,
-                allowedContentTypes: [UTType.commaSeparatedText, UTType.plainText],
+                allowedContentTypes: [.commaSeparatedText, .plainText],
                 allowsMultipleSelection: false
             ) { result in
                 switch result {
@@ -100,21 +133,24 @@ struct ImportCSVView: View {
     }
 
     private func parseFile(url: URL) {
-        guard url.startAccessingSecurityScopedResource() else { return }
+        guard url.startAccessingSecurityScopedResource() else {
+            importError = "Permission denied for this file."
+            return
+        }
         defer { url.stopAccessingSecurityScopedResource() }
         do {
             let csv = try String(contentsOf: url, encoding: .utf8)
             importedRows = try LighterpackService.import(csv: csv)
             importError = nil
-            showPreview = true
+            showPreview = !importedRows.isEmpty
+            if importedRows.isEmpty { importError = "No valid items found in this file." }
         } catch {
             importError = error.localizedDescription
         }
     }
 
     private func commitImport(rows: [LighterpackRow]) {
-        let items = LighterpackService.rowsToGearItems(rows)
-        for item in items { context.insert(item) }
+        LighterpackService.rowsToGearItems(rows).forEach { context.insert($0) }
         try? context.save()
         dismiss()
     }
@@ -127,38 +163,74 @@ struct ImportPreviewView: View {
 
     @State private var selected: Set<Int> = []
 
+    var selectedWeight: Double {
+        selected.map { rows[$0].weightGrams * Double(rows[$0].quantity) }.reduce(0, +)
+    }
+
     var body: some View {
         NavigationStack {
             List(Array(rows.enumerated()), id: \.offset) { index, row in
-                HStack {
-                    Image(systemName: selected.contains(index) ? "checkmark.circle.fill" : "circle")
+                HStack(spacing: 12) {
+                    Image(systemName: selected.contains(index)
+                          ? "checkmark.circle.fill" : "circle")
                         .foregroundStyle(selected.contains(index) ? .blue : .secondary)
+                        .font(.title3)
                         .onTapGesture {
                             if selected.contains(index) { selected.remove(index) }
                             else { selected.insert(index) }
                         }
                     VStack(alignment: .leading, spacing: 2) {
                         Text(row.name).font(.body)
-                        Text("\(row.category) · \(WeightParser.displayString(row.weightGrams))")
-                            .font(.caption).foregroundStyle(.secondary)
+                        HStack {
+                            Text(row.category.isEmpty ? "Uncategorized" : row.category)
+                            Text("·")
+                            Text(WeightParser.displayString(row.weightGrams))
+                        }
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
                     }
                     Spacer()
-                    Text("×\(row.quantity)").foregroundStyle(.secondary).font(.caption)
+                    if row.quantity > 1 {
+                        Text("×\(row.quantity)")
+                            .foregroundStyle(.secondary)
+                            .font(.caption)
+                    }
+                }
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    if selected.contains(index) { selected.remove(index) }
+                    else { selected.insert(index) }
                 }
             }
             .navigationTitle("Preview (\(rows.count) items)")
             .navigationBarTitleDisplayMode(.inline)
+            .safeAreaInset(edge: .bottom) {
+                VStack(spacing: 0) {
+                    Divider()
+                    HStack {
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("\(selected.count) of \(rows.count) selected")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                            Text(WeightParser.displayString(selectedWeight))
+                                .font(.caption.monospacedDigit())
+                                .foregroundStyle(.secondary)
+                        }
+                        Spacer()
+                        Button("Import \(selected.count)") {
+                            onImport(selected.sorted().map { rows[$0] })
+                            dismiss()
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .disabled(selected.isEmpty)
+                    }
+                    .padding()
+                }
+                .background(.regularMaterial)
+            }
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") { dismiss() }
-                }
-                ToolbarItem(placement: .primaryAction) {
-                    Button("Import \(selected.isEmpty ? "All" : "\(selected.count)")") {
-                        let toImport = selected.isEmpty ? rows : selected.sorted().map { rows[$0] }
-                        onImport(toImport)
-                        dismiss()
-                    }
-                    .fontWeight(.semibold)
                 }
                 ToolbarItem(placement: .secondaryAction) {
                     Button(selected.count == rows.count ? "Deselect All" : "Select All") {
@@ -169,44 +241,5 @@ struct ImportPreviewView: View {
             }
             .onAppear { selected = Set(0..<rows.count) }
         }
-    }
-}
-
-struct ShareSheetView: UIViewControllerRepresentable {
-    let items: [Any]
-
-    func makeUIViewController(context: Context) -> UIActivityViewController {
-        UIActivityViewController(activityItems: items, applicationActivities: nil)
-    }
-
-    func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
-}
-
-struct PackListShareButton: View {
-    let packList: PackList
-    @State private var isSharing = false
-    @State private var shareURL: URL? = nil
-
-    var body: some View {
-        Button("Share Pack List", systemImage: "square.and.arrow.up") {
-            shareURL = writeCSV()
-            isSharing = shareURL != nil
-        }
-        .sheet(isPresented: $isSharing) {
-            if let url = shareURL {
-                ShareSheetView(items: [url])
-            }
-        }
-    }
-
-    private func writeCSV() -> URL? {
-        let csv = LighterpackService.exportPackList(packList: packList)
-        let name = packList.name.replacingOccurrences(of: " ", with: "-").lowercased()
-        let url = FileManager.default.temporaryDirectory
-            .appendingPathComponent("\(name).csv")
-        do {
-            try csv.write(to: url, atomically: true, encoding: .utf8)
-            return url
-        } catch { return nil }
     }
 }

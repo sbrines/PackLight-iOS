@@ -12,7 +12,7 @@ struct PackLightApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            AppRootView()
         }
         .modelContainer(for: [
             GearItem.self,
