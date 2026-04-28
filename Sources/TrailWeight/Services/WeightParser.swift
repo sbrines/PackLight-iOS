@@ -9,6 +9,7 @@ struct WeightParser {
         if let g = parsePoundsAndOunces(s) { return g }
         if let g = parseOuncesOnly(s) { return g }
         if let g = parsePoundsOnly(s) { return g }
+        if let g = parseKilogramsOnly(s) { return g }
         return nil
     }
 
@@ -67,6 +68,18 @@ struct WeightParser {
               let range = Range(match.range(at: 1), in: s),
               let lbs = Double(String(s[range])) else { return nil }
         return lbs * 453.592
+    }
+
+    // "1.31 kg", "0.85 kg"
+    private static func parseKilogramsOnly(_ s: String) -> Double? {
+        guard s.range(of: "oz", options: .caseInsensitive) == nil,
+              s.range(of: #"lbs?"#, options: [.regularExpression, .caseInsensitive]) == nil else { return nil }
+        let pattern = #"(\d+(?:\.\d+)?)\s*kg\b"#
+        guard let regex = try? NSRegularExpression(pattern: pattern, options: .caseInsensitive),
+              let match = regex.firstMatch(in: s, range: NSRange(s.startIndex..., in: s)),
+              let range = Range(match.range(at: 1), in: s),
+              let kg = Double(String(s[range])) else { return nil }
+        return kg * 1000
     }
 
     static func displayString(_ grams: Double) -> String {

@@ -99,6 +99,8 @@ struct AddGearItemView: View {
         if name.isEmpty { name = metadata.name }
         if let g = metadata.weightGrams, weightGrams.isEmpty {
             weightGrams = String(format: "%.0f", g)
+        } else if metadata.weightGrams == nil {
+            viewModel.urlFetchError = "Name imported — weight not found, enter manually."
         }
     }
 

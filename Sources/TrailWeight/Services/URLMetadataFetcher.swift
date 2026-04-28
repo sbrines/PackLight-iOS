@@ -226,6 +226,30 @@ actor URLMetadataFetcher {
         if name == nil {
             name = try doc.select("meta[property='og:title']").first()?.attr("content") ?? doc.title()
         }
+        // HTML spec tables: <th>Weight...</th> <td>value</td>  or  <dt>Weight</dt><dd>value</dd>
+        if weightGrams == nil {
+            let weightLabels = ["pack weight", "trail weight", "weight (pounds)",
+                                "weight (kilograms)", "weight (grams)", "weight"]
+            for row in try doc.select("tr") {
+                let cells = try row.select("th, td")
+                guard cells.size() >= 2 else { continue }
+                let label = (try? cells.get(0).text().lowercased()) ?? ""
+                if weightLabels.contains(where: { label.contains($0) }) {
+                    let value = (try? cells.get(1).text()) ?? ""
+                    let (raw, g) = extractWeight(from: value)
+                    if g != nil { rawWeight = raw; weightGrams = g; break }
+                }
+            }
+        }
+        if weightGrams == nil {
+            for dt in try doc.select("dt") {
+                if (try dt.text()).lowercased().contains("weight"),
+                   let dd = try dt.nextElementSibling() {
+                    let (raw, g) = extractWeight(from: try dd.text())
+                    if g != nil { rawWeight = raw; weightGrams = g; break }
+                }
+            }
+        }
         if weightGrams == nil {
             for src in [try doc.select("meta[property='og:description']").first()?.attr("content"),
                         try doc.select("meta[name='description']").first()?.attr("content")].compactMap({ $0 }) {
