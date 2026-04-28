@@ -28,13 +28,24 @@ struct AddGearItemView: View {
                             .keyboardType(.URL)
                             .autocorrectionDisabled()
                             .textInputAutocapitalization(.never)
+                        if !urlString.isEmpty {
+                            Button {
+                                urlString = ""
+                                viewModel.urlFetchError = nil
+                            } label: {
+                                Image(systemName: "xmark.circle.fill")
+                                    .foregroundStyle(.secondary)
+                            }
+                            .buttonStyle(.plain)
+                        }
                         Button {
                             Task { await fetchFromURL() }
                         } label: {
                             if viewModel.isFetchingURL {
                                 ProgressView().controlSize(.small)
                             } else {
-                                Image(systemName: "arrow.down.circle")
+                                Text("Import")
+                                    .fontWeight(.medium)
                             }
                         }
                         .disabled(urlString.isEmpty || viewModel.isFetchingURL)
