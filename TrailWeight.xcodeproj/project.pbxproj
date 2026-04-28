@@ -20,6 +20,7 @@
 		5F96B92D85DD437F1261BF38 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CB1E6297F6C9189844D937 /* ContentView.swift */; };
 		61E7B51A192C14269581A00D /* GearViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B72F30D8A3177ED02B07D99 /* GearViewModel.swift */; };
 		668BD0CE8705AB3D8CB873FD /* AddGearItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55336CF1713DE9BF4F3DEC57 /* AddGearItemView.swift */; };
+		6A72CD42A6B45CDA5FE96BD7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A330F501339F1E7A9A665779 /* Assets.xcassets */; };
 		70398C7F0BBCC109DAB9A950 /* WeightCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B605D4139D6EB5765A9A2F64 /* WeightCalculatorTests.swift */; };
 		7056A17D929E0211703185A6 /* GearRecommendationEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B80C1430AE87B08B9054571 /* GearRecommendationEngine.swift */; };
 		71B2C32BF70196C7FFB31580 /* WeightParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9245966E4662B7B4D5FCFB /* WeightParserTests.swift */; };
@@ -82,6 +83,7 @@
 		9C424EF772F029D15CBEA7EE /* GearItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GearItem.swift; sourceTree = "<group>"; };
 		9D076A4A52E80FD53D414C7B /* WeightHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightHistoryView.swift; sourceTree = "<group>"; };
 		9F93780213E67D105899C31A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		A330F501339F1E7A9A665779 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A53FA29756120200FA802CDD /* TrailWeightApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailWeightApp.swift; sourceTree = "<group>"; };
 		AE57A84ED5B6313641F7BB44 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		B0071884E8F70BB3AD1B4597 /* GearListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GearListView.swift; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 		8D9295F0542046EB203B996B /* TrailWeight */ = {
 			isa = PBXGroup;
 			children = (
+				A330F501339F1E7A9A665779 /* Assets.xcassets */,
 				9F93780213E67D105899C31A /* Info.plist */,
 				A53FA29756120200FA802CDD /* TrailWeightApp.swift */,
 				A29C9405A60F27D00DED5976 /* Models */,
@@ -279,6 +282,7 @@
 			buildConfigurationList = 8DBEC6185E261E7686D6D24A /* Build configuration list for PBXNativeTarget "TrailWeight" */;
 			buildPhases = (
 				E2BBC2E28CFC4A6507B3F684 /* Sources */,
+				EE7A04747B223CCA65D2EED1 /* Resources */,
 				85333A324D0D82F800DABBF6 /* Frameworks */,
 			);
 			buildRules = (
@@ -334,6 +338,17 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		EE7A04747B223CCA65D2EED1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6A72CD42A6B45CDA5FE96BD7 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		31CAD74F77C1BC8BA2F83965 /* Sources */ = {
