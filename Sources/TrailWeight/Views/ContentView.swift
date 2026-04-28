@@ -31,6 +31,11 @@ struct ContentView: View {
             }
             .tabItem { Label("Weight", systemImage: "scalemass.fill") }
             .environment(weightViewModel)
+
+            NavigationStack {
+                SettingsView()
+            }
+            .tabItem { Label("Settings", systemImage: "gearshape.fill") }
         }
         #endif
     }

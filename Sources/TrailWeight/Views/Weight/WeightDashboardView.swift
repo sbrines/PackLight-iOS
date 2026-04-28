@@ -4,10 +4,12 @@ import Charts
 
 struct WeightDashboardView: View {
     @Environment(WeightViewModel.self) private var viewModel
+    @Environment(AppSettings.self) private var appSettings
     @Query(sort: \Trip.startDate) private var trips: [Trip]
 
     var body: some View {
         @Bindable var vm = viewModel
+        @Bindable var settings = appSettings
         List {
             Section("Select Trip") {
                 Picker("Trip", selection: $vm.selectedTrip) {
@@ -23,50 +25,38 @@ struct WeightDashboardView: View {
                 let summary = viewModel.summary
 
                 Section("Weight Summary") {
-                    WeightRow(label: "Base Weight", grams: summary.baseWeightGrams,
-                              viewModel: viewModel)
-                    WeightRow(label: "Worn Weight", grams: summary.wornWeightGrams,
-                              viewModel: viewModel)
-                    WeightRow(label: "Consumables", grams: summary.consumableWeightGrams,
-                              viewModel: viewModel)
+                    WeightRow(label: "Base Weight",       grams: summary.baseWeightGrams,       settings: appSettings)
+                    WeightRow(label: "Worn Weight",       grams: summary.wornWeightGrams,       settings: appSettings)
+                    WeightRow(label: "Consumables",       grams: summary.consumableWeightGrams, settings: appSettings)
                     Divider()
-                    WeightRow(label: "Total Pack Weight", grams: summary.totalWeightGrams,
-                              viewModel: viewModel, isBold: true)
+                    WeightRow(label: "Total Pack Weight", grams: summary.totalWeightGrams,      settings: appSettings, isBold: true)
                 }
 
                 Section {
                     VStack(alignment: .leading, spacing: 4) {
                         Text(summary.classification).font(.title3.bold())
-                        Text("Base weight: \(viewModel.formatted(summary.baseWeightGrams))")
+                        Text("Base weight: \(appSettings.format(summary.baseWeightGrams))")
                             .font(.caption).foregroundStyle(.secondary)
                     }
-                } header: {
-                    Text("Classification")
-                }
+                } header: { Text("Classification") }
 
                 if !summary.byCategory.isEmpty {
                     Section("By Category") {
                         Chart(summary.byCategory) { cat in
-                            SectorMark(
-                                angle: .value("Weight", cat.weightGrams),
-                                innerRadius: .ratio(0.5)
-                            )
-                            .foregroundStyle(by: .value("Category", cat.categoryName))
+                            SectorMark(angle: .value("Weight", cat.weightGrams), innerRadius: .ratio(0.5))
+                                .foregroundStyle(by: .value("Category", cat.categoryName))
                         }
                         .frame(height: 200)
 
                         ForEach(summary.byCategory) { cat in
                             HStack {
-                                Image(systemName: cat.categoryIcon)
-                                    .frame(width: 20)
+                                Image(systemName: cat.categoryIcon).frame(width: 20)
                                 Text(cat.categoryName)
                                 Spacer()
-                                Text(viewModel.formatted(cat.weightGrams))
-                                    .font(.caption.monospacedDigit())
-                                    .foregroundStyle(.secondary)
+                                Text(appSettings.format(cat.weightGrams))
+                                    .font(.caption.monospacedDigit()).foregroundStyle(.secondary)
                                 Text(String(format: "%.0f%%", cat.percentage))
-                                    .font(.caption2)
-                                    .foregroundStyle(.tertiary)
+                                    .font(.caption2).foregroundStyle(.tertiary)
                                     .frame(width: 36, alignment: .trailing)
                             }
                         }
@@ -74,7 +64,7 @@ struct WeightDashboardView: View {
                 }
 
                 Section("Display Unit") {
-                    Picker("Unit", selection: $vm.displayUnit) {
+                    Picker("Unit", selection: $settings.weightUnit) {
                         ForEach(WeightUnit.allCases) { u in
                             Text(u.rawValue).tag(u)
                         }
@@ -97,14 +87,14 @@ struct WeightDashboardView: View {
 private struct WeightRow: View {
     let label: String
     let grams: Double
-    let viewModel: WeightViewModel
+    let settings: AppSettings
     var isBold = false
 
     var body: some View {
         HStack {
             Text(label).fontWeight(isBold ? .semibold : .regular)
             Spacer()
-            Text(viewModel.formatted(grams))
+            Text(settings.format(grams))
                 .fontWeight(isBold ? .semibold : .regular)
                 .monospacedDigit()
         }

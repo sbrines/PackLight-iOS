@@ -52,11 +52,12 @@ struct PackListView: View {
 private struct WeightPill: View {
     let label: String
     let grams: Double
+    @Environment(AppSettings.self) private var appSettings
 
     var body: some View {
         VStack(spacing: 2) {
             Text(label).font(.caption2).foregroundStyle(.secondary)
-            Text(WeightParser.displayString(grams)).font(.caption.monospacedDigit())
+            Text(appSettings.format(grams)).font(.caption.monospacedDigit())
         }
     }
 }
@@ -66,6 +67,7 @@ private struct PackListItemRow: View {
     let viewModel: TripViewModel
     let packList: PackList
     let context: ModelContext
+    @Environment(AppSettings.self) private var appSettings
 
     var body: some View {
         HStack {
@@ -73,7 +75,7 @@ private struct PackListItemRow: View {
                 Text(item.gearItem?.name ?? "Unknown")
                 HStack {
                     if item.isWorn { Label("Worn", systemImage: "figure.walk").font(.caption2) }
-                    Text(WeightParser.displayString(item.totalWeightGrams))
+                    Text(appSettings.format(item.totalWeightGrams))
                         .font(.caption2.monospacedDigit())
                         .foregroundStyle(.secondary)
                 }
@@ -123,7 +125,7 @@ struct GearPickerView: View {
                         Image(systemName: gear.category.symbolName).foregroundStyle(gear.category.color)
                         VStack(alignment: .leading) {
                             Text(gear.name)
-                            Text(gear.displayWeight).font(.caption).foregroundStyle(.secondary)
+                            Text(gear.displayWeight).font(.caption).foregroundStyle(.secondary) // uses model default; formatter via appSettings in detail
                         }
                     }
                 }

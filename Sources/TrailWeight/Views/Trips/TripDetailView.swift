@@ -5,6 +5,7 @@ struct TripDetailView: View {
     @Bindable var trip: Trip
     @Environment(TripViewModel.self) private var viewModel
     @Environment(\.modelContext) private var context
+    @Environment(AppSettings.self) private var appSettings
     @State private var showingRecommendations = false
 
     private let recommendationEngine = GearRecommendationEngine()
@@ -26,9 +27,9 @@ struct TripDetailView: View {
                         PackListView(packList: packList)
                     }
                     LabeledContent("Base Weight",
-                                   value: WeightParser.displayString(packList.baseWeightGrams))
+                                   value: appSettings.format(packList.baseWeightGrams))
                     LabeledContent("Pack Weight",
-                                   value: WeightParser.displayString(packList.packWeightGrams))
+                                   value: appSettings.format(packList.packWeightGrams))
                 }
             }
 

@@ -2,10 +2,11 @@ import SwiftUI
 
 struct OnboardingView: View {
     @Binding var hasSeenOnboarding: Bool
+    @Environment(AppSettings.self) private var appSettings
 
     @State private var page = 0
 
-    private let pages: [OnboardingPage] = [
+    private let infoPages: [OnboardingPage] = [
         OnboardingPage(
             icon: "backpack.fill",
             iconColor: .indigo,
@@ -32,12 +33,19 @@ struct OnboardingView: View {
         ),
     ]
 
+    private var totalPages: Int { infoPages.count + 1 } // +1 for unit picker
+    private var isLastPage: Bool { page == totalPages - 1 }
+
     var body: some View {
+        @Bindable var settings = appSettings
         VStack(spacing: 0) {
             TabView(selection: $page) {
-                ForEach(Array(pages.enumerated()), id: \.offset) { index, p in
+                ForEach(Array(infoPages.enumerated()), id: \.offset) { index, p in
                     OnboardingPageView(page: p).tag(index)
                 }
+
+                // Unit picker page
+                UnitPickerPage(selectedUnit: $settings.weightUnit).tag(infoPages.count)
             }
             #if os(iOS)
             .tabViewStyle(.page(indexDisplayMode: .always))
@@ -46,7 +54,7 @@ struct OnboardingView: View {
             .animation(.easeInOut, value: page)
 
             VStack(spacing: 12) {
-                if page == pages.count - 1 {
+                if isLastPage {
                     Button("Get Started") {
                         hasSeenOnboarding = true
                     }
@@ -103,6 +111,73 @@ private struct OnboardingPageView: View {
             }
             .padding(.horizontal, 32)
             Spacer()
+        }
+    }
+}
+
+private struct UnitPickerPage: View {
+    @Binding var selectedUnit: WeightUnit
+
+    var body: some View {
+        VStack(spacing: 28) {
+            Spacer()
+            ZStack {
+                Circle()
+                    .fill(Color.green.opacity(0.12))
+                    .frame(width: 120, height: 120)
+                Image(systemName: "scalemass.fill")
+                    .font(.system(size: 52))
+                    .foregroundStyle(.green)
+            }
+            VStack(spacing: 12) {
+                Text("How do you measure weight?")
+                    .font(.title.bold())
+                    .multilineTextAlignment(.center)
+                Text("Choose your preferred unit. You can change this anytime in Settings.")
+                    .font(.body)
+                    .foregroundStyle(.secondary)
+                    .multilineTextAlignment(.center)
+                    .lineSpacing(4)
+            }
+            .padding(.horizontal, 32)
+
+            VStack(spacing: 12) {
+                ForEach(WeightUnit.allCases) { unit in
+                    Button {
+                        selectedUnit = unit
+                    } label: {
+                        HStack {
+                            Text(unitLabel(unit))
+                                .font(.body)
+                            Spacer()
+                            if selectedUnit == unit {
+                                Image(systemName: "checkmark.circle.fill")
+                                    .foregroundStyle(.green)
+                            } else {
+                                Image(systemName: "circle")
+                                    .foregroundStyle(.secondary)
+                            }
+                        }
+                        .padding()
+                        .background(
+                            RoundedRectangle(cornerRadius: 12)
+                                .fill(selectedUnit == unit ? Color.green.opacity(0.1) : Color(.systemGray6))
+                        )
+                    }
+                    .buttonStyle(.plain)
+                }
+            }
+            .padding(.horizontal, 32)
+            Spacer()
+        }
+    }
+
+    private func unitLabel(_ unit: WeightUnit) -> String {
+        switch unit {
+        case .grams:     return "Grams (g)"
+        case .ounces:    return "Ounces (oz)"
+        case .kilograms: return "Kilograms (kg)"
+        case .pounds:    return "Pounds (lb)"
         }
     }
 }

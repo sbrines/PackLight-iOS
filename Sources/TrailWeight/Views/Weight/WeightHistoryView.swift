@@ -5,6 +5,7 @@ import Charts
 struct WeightHistoryView: View {
     @Query(sort: \WeightSnapshot.recordedAt, order: .forward) private var snapshots: [WeightSnapshot]
     @Environment(\.modelContext) private var context
+    @Environment(AppSettings.self) private var appSettings
 
     var body: some View {
         Group {
@@ -65,7 +66,7 @@ struct WeightHistoryView: View {
                                 }
                                 Spacer()
                                 VStack(alignment: .trailing, spacing: 2) {
-                                    Text(WeightParser.displayString(snap.baseWeightGrams))
+                                    Text(appSettings.format(snap.baseWeightGrams))
                                         .font(.body.monospacedDigit())
                                     Text(snap.classification)
                                         .font(.caption)

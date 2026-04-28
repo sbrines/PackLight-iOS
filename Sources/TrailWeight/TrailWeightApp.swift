@@ -4,6 +4,8 @@ import SwiftData
 @main
 struct TrailWeightApp: App {
 
+    @State private var appSettings = AppSettings()
+
     #if os(macOS)
     @State private var selectedSidebarItem: MacSidebarItem? = .gear
     @State private var gearVM = GearViewModel()
@@ -35,6 +37,7 @@ struct TrailWeightApp: App {
             AppRootView()
         }
         .modelContainer(container)
+        .environment(appSettings)
         #if os(macOS)
         .commands {
             TrailWeightCommands(

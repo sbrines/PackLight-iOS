@@ -3,6 +3,7 @@ import SwiftUI
 struct ResupplyPointDetailView: View {
     @Bindable var point: ResupplyPoint
     @Environment(\.modelContext) private var context
+    @Environment(AppSettings.self) private var appSettings
 
     var body: some View {
         List {
@@ -25,7 +26,7 @@ struct ResupplyPointDetailView: View {
                         Spacer()
                         Text("×\(item.quantity)")
                             .foregroundStyle(.secondary)
-                        Text(WeightParser.displayString(item.lineWeightGrams))
+                        Text(appSettings.format(item.lineWeightGrams))
                             .font(.caption.monospacedDigit())
                             .foregroundStyle(.secondary)
                     }

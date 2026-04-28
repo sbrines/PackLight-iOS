@@ -3,12 +3,12 @@ import SwiftUI
 struct GearItemDetailView: View {
     @Bindable var item: GearItem
     @Environment(\.modelContext) private var context
+    @Environment(AppSettings.self) private var appSettings
 
     var body: some View {
         List {
             Section("Weight") {
-                LabeledContent("Weight", value: item.displayWeight)
-                LabeledContent("In ounces", value: String(format: "%.2f oz", item.weightOunces))
+                LabeledContent("Weight", value: appSettings.format(item.weightGrams))
             }
             Section("Details") {
                 LabeledContent("Brand", value: item.brand.isEmpty ? "—" : item.brand)
