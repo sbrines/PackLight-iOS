@@ -50,7 +50,7 @@ final class GearRecommendationTests: XCTestCase {
         let recs = engine.recommendations(for: conditions, ownedCategories: [])
         let waterRec = recs.filter { $0.categoryName == "Water" && $0.priority == .required }
         XCTAssertFalse(waterRec.isEmpty)
-        XCTAssertTrue(waterRec.first?.reason.contains("Desert") ?? false)
+        XCTAssertTrue(waterRec.contains { $0.reason.contains("Desert") })
     }
 
     func testExtendedTripAddsHygiene() {

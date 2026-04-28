@@ -50,7 +50,7 @@ struct WeightParser {
     // "4.2 oz", "4 ounces"
     private static func parseOuncesOnly(_ s: String) -> Double? {
         guard s.range(of: #"lbs?"#, options: [.regularExpression, .caseInsensitive]) == nil else { return nil }
-        let pattern = #"(\d+(?:\.\d+)?)\s*oz(?:ounce[s]?)?"#
+        let pattern = #"(\d+(?:\.\d+)?)\s*(?:oz|ounce[s]?)\b"#
         guard let regex = try? NSRegularExpression(pattern: pattern, options: .caseInsensitive),
               let match = regex.firstMatch(in: s, range: NSRange(s.startIndex..., in: s)),
               let range = Range(match.range(at: 1), in: s),
