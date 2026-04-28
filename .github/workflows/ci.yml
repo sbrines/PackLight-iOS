@@ -33,42 +33,34 @@ jobs:
 
       - name: Find available simulator
         run: |
-          UDID=$(xcrun simctl list devices available --json | python3 -c "
-import json, sys
-data = json.load(sys.stdin)
-for runtime, devices in data['devices'].items():
-    if 'iOS' not in runtime:
-        continue
-    for d in devices:
-        if d['isAvailable'] and 'iPhone' in d['name']:
-            print(d['udid'])
-            sys.exit(0)
-sys.exit(1)
-")
+          UDID=$(xcrun simctl list devices available -j | \
+            python3 -c "import json,sys; d=json.load(sys.stdin)['devices']; [print(v['udid']) or exit() for k,vs in d.items() for v in vs if 'iOS' in k and v['isAvailable'] and 'iPhone' in v['name']]")
           echo "SIM_UDID=$UDID" >> $GITHUB_ENV
-          echo "Using simulator: $UDID"
 
       - name: Resolve packages
-        run: xcodebuild -resolvePackageDependencies
-          -project TrailWeight.xcodeproj
-          -scheme TrailWeight
+        run: |
+          xcodebuild -resolvePackageDependencies \
+            -project TrailWeight.xcodeproj \
+            -scheme TrailWeight
 
       - name: Build for testing
-        run: xcodebuild build-for-testing
-          -project TrailWeight.xcodeproj
-          -scheme TrailWeight
-          -destination "id=$SIM_UDID"
-          -derivedDataPath DerivedData
-          CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
+        run: |
+          xcodebuild build-for-testing \
+            -project TrailWeight.xcodeproj \
+            -scheme TrailWeight \
+            -destination "id=$SIM_UDID" \
+            -derivedDataPath DerivedData \
+            CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
 
       - name: Run unit tests
-        run: xcodebuild test-without-building
-          -project TrailWeight.xcodeproj
-          -scheme TrailWeight
-          -destination "id=$SIM_UDID"
-          -derivedDataPath DerivedData
-          -resultBundlePath TestResults.xcresult
-          CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
+        run: |
+          xcodebuild test-without-building \
+            -project TrailWeight.xcodeproj \
+            -scheme TrailWeight \
+            -destination "id=$SIM_UDID" \
+            -derivedDataPath DerivedData \
+            -resultBundlePath TestResults.xcresult \
+            CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
 
       - name: Upload test results
         if: always()
