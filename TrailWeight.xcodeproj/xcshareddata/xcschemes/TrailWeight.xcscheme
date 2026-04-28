@@ -15,10 +15,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "2F52E0C36C4D77FDA16636A7"
-               BuildableName = "PackLight.app"
-               BlueprintName = "PackLight"
-               ReferencedContainer = "container:PackLight.xcodeproj">
+               BlueprintIdentifier = "E8AEFF0C28D09DB20CBB9FAC"
+               BuildableName = "TrailWeight.app"
+               BlueprintName = "TrailWeight"
+               ReferencedContainer = "container:TrailWeight.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -29,10 +29,10 @@
             buildForAnalyzing = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0E4F7BA6EA3050A2E79CD21E"
-               BuildableName = "PackLightTests.xctest"
-               BlueprintName = "PackLightTests"
-               ReferencedContainer = "container:PackLight.xcodeproj">
+               BlueprintIdentifier = "DA34BF006EA81F334E00E579"
+               BuildableName = "TrailWeightTests.xctest"
+               BlueprintName = "TrailWeightTests"
+               ReferencedContainer = "container:TrailWeight.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -46,10 +46,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "2F52E0C36C4D77FDA16636A7"
-            BuildableName = "PackLight.app"
-            BlueprintName = "PackLight"
-            ReferencedContainer = "container:PackLight.xcodeproj">
+            BlueprintIdentifier = "E8AEFF0C28D09DB20CBB9FAC"
+            BuildableName = "TrailWeight.app"
+            BlueprintName = "TrailWeight"
+            ReferencedContainer = "container:TrailWeight.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <Testables>
@@ -58,10 +58,10 @@
             parallelizable = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0E4F7BA6EA3050A2E79CD21E"
-               BuildableName = "PackLightTests.xctest"
-               BlueprintName = "PackLightTests"
-               ReferencedContainer = "container:PackLight.xcodeproj">
+               BlueprintIdentifier = "DA34BF006EA81F334E00E579"
+               BuildableName = "TrailWeightTests.xctest"
+               BlueprintName = "TrailWeightTests"
+               ReferencedContainer = "container:TrailWeight.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -82,10 +82,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "2F52E0C36C4D77FDA16636A7"
-            BuildableName = "PackLight.app"
-            BlueprintName = "PackLight"
-            ReferencedContainer = "container:PackLight.xcodeproj">
+            BlueprintIdentifier = "E8AEFF0C28D09DB20CBB9FAC"
+            BuildableName = "TrailWeight.app"
+            BlueprintName = "TrailWeight"
+            ReferencedContainer = "container:TrailWeight.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <CommandLineArguments>
@@ -101,10 +101,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "2F52E0C36C4D77FDA16636A7"
-            BuildableName = "PackLight.app"
-            BlueprintName = "PackLight"
-            ReferencedContainer = "container:PackLight.xcodeproj">
+            BlueprintIdentifier = "E8AEFF0C28D09DB20CBB9FAC"
+            BuildableName = "TrailWeight.app"
+            BlueprintName = "TrailWeight"
+            ReferencedContainer = "container:TrailWeight.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <CommandLineArguments>

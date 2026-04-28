@@ -34,7 +34,7 @@ struct MacContentView: View {
             }
             .navigationSplitViewColumnWidth(min: 180, ideal: 220)
             .listStyle(.sidebar)
-            .navigationTitle("PackLight")
+            .navigationTitle("TrailWeight")
         } detail: {
             NavigationStack {
                 switch selectedItem {
@@ -53,15 +53,15 @@ struct MacContentView: View {
     }
 }
 
-// MARK: - Mac Commands (attached at Scene level in PackLightApp)
+// MARK: - Mac Commands (attached at Scene level in TrailWeightApp)
 
-struct PackLightCommands: Commands {
+struct TrailWeightCommands: Commands {
     @Binding var selectedItem: MacSidebarItem?
     let gearVM: GearViewModel
     let tripVM: TripViewModel
 
     var body: some Commands {
-        CommandMenu("PackLight") {
+        CommandMenu("TrailWeight") {
             Button("New Gear Item") {
                 selectedItem = .gear
                 gearVM.showingAddSheet = true

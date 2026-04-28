@@ -26,7 +26,7 @@ struct ExportButton: View {
 
     @State private var isExporting = false
 
-    init(items: [GearItem], filename: String = "packlight-gear") {
+    init(items: [GearItem], filename: String = "trailweight-gear") {
         self.items = items
         self.filename = filename
     }

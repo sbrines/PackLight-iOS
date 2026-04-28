@@ -1,5 +1,5 @@
 import XCTest
-@testable import PackLight
+@testable import TrailWeight
 
 final class WeightParserTests: XCTestCase {
 

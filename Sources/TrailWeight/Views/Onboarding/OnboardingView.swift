@@ -16,7 +16,7 @@ struct OnboardingView: View {
             icon: "scalemass.fill",
             iconColor: .green,
             title: "Go ultralight",
-            body: "Build pack lists for each trip. Track base weight, worn weight, and consumables in real time. PackLight tells you if you've hit ultralight or super-ultralight status."
+            body: "Build pack lists for each trip. Track base weight, worn weight, and consumables in real time. TrailWeight tells you if you've hit ultralight or super-ultralight status."
         ),
         OnboardingPage(
             icon: "map.fill",

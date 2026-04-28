@@ -36,21 +36,21 @@ jobs:
 
       - name: Resolve packages
         run: xcodebuild -resolvePackageDependencies
-          -project PackLight.xcodeproj
-          -scheme PackLight
+          -project TrailWeight.xcodeproj
+          -scheme TrailWeight
 
       - name: Build for testing
         run: xcodebuild build-for-testing
-          -project PackLight.xcodeproj
-          -scheme PackLight
+          -project TrailWeight.xcodeproj
+          -scheme TrailWeight
           -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest'
           -derivedDataPath DerivedData
           CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
 
       - name: Run unit tests
         run: xcodebuild test-without-building
-          -project PackLight.xcodeproj
-          -scheme PackLight
+          -project TrailWeight.xcodeproj
+          -scheme TrailWeight
           -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest'
           -derivedDataPath DerivedData
           -resultBundlePath TestResults.xcresult

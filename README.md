@@ -1,4 +1,4 @@
-# PackLight — iOS & macOS
+# TrailWeight — iOS & macOS
 
 **Ultralight backpacking trip planner for iOS 17+ and macOS 14+**
 
@@ -36,7 +36,7 @@
 ## Architecture
 
 ```
-Sources/PackLight/
+Sources/TrailWeight/
 ├── Models/          # SwiftData @Model — GearItem, Trip, PackList, PackListItem,
 │                    #   ResupplyPoint, ResupplyPointItem
 ├── Services/        # WeightCalculator, WeightParser, URLMetadataFetcher,
@@ -47,7 +47,7 @@ Sources/PackLight/
     ├── Trips/       # TripListView, TripDetailView, PackListView, ResupplyPointDetailView,
     │                #   RecommendationsView, AddTripView
     ├── Weight/      # WeightDashboardView
-    └── Mac/         # MacContentView (NavigationSplitView + PackLightCommands)
+    └── Mac/         # MacContentView (NavigationSplitView + TrailWeightCommands)
 ```
 
 **Weight classification thresholds:**
@@ -80,10 +80,10 @@ Supported retailers with automatic weight extraction:
 ## Building
 
 ```bash
-git clone https://github.com/sbrines/PackLight-iOS
-cd PackLight-iOS
+git clone https://github.com/sbrines/TrailWeight-iOS
+cd TrailWeight-iOS
 xcodegen generate
-open PackLight.xcodeproj
+open TrailWeight.xcodeproj
 ```
 
 To run on macOS: select **My Mac (Designed for iPad)** as the run destination.
@@ -93,7 +93,7 @@ To run on macOS: select **My Mac (Designed for iPad)** as the run destination.
 ## Tests
 
 ```bash
-xcodebuild test -project PackLight.xcodeproj -scheme PackLight -destination 'platform=iOS Simulator,name=iPhone 16'
+xcodebuild test -project TrailWeight.xcodeproj -scheme TrailWeight -destination 'platform=iOS Simulator,name=iPhone 16'
 ```
 
 **Test coverage:**
@@ -106,8 +106,8 @@ xcodebuild test -project PackLight.xcodeproj -scheme PackLight -destination 'pla
 
 ## Related Repos
 
-- **Android**: [PackLight-Android](https://github.com/sbrines/PackLight-Android)
-- **Landing page**: [PackLight-Web](https://github.com/sbrines/PackLight-Web)
+- **Android**: [TrailWeight-Android](https://github.com/sbrines/TrailWeight-Android)
+- **Landing page**: [TrailWeight-Web](https://github.com/sbrines/TrailWeight-Web)
 
 ## Xcode Cloud
 

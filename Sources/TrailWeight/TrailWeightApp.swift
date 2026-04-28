@@ -2,7 +2,7 @@ import SwiftUI
 import SwiftData
 
 @main
-struct PackLightApp: App {
+struct TrailWeightApp: App {
 
     #if os(macOS)
     @State private var selectedSidebarItem: MacSidebarItem? = .gear
@@ -25,7 +25,7 @@ struct PackLightApp: App {
         ])
         #if os(macOS)
         .commands {
-            PackLightCommands(
+            TrailWeightCommands(
                 selectedItem: $selectedSidebarItem,
                 gearVM: gearVM,
                 tripVM: tripVM
