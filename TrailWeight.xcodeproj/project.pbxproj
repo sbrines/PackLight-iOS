@@ -96,6 +96,7 @@
 		D66AD0443902764FFAC16EF8 /* PackListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackListView.swift; sourceTree = "<group>"; };
 		DD9461CB6C63036B70765AEC /* TrailWeightTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = TrailWeightTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE9AF4626325F6E7054077FF /* TripDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDetailView.swift; sourceTree = "<group>"; };
+		F0C923A1433EC3C5BA95C6B2 /* TrailWeight.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TrailWeight.entitlements; sourceTree = "<group>"; };
 		F38F22811BB16B2E65681F1F /* TripListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripListView.swift; sourceTree = "<group>"; };
 		FB4125BCE4B6805FEA30AE51 /* WeightSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightSnapshot.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -173,6 +174,7 @@
 			children = (
 				A330F501339F1E7A9A665779 /* Assets.xcassets */,
 				9F93780213E67D105899C31A /* Info.plist */,
+				F0C923A1433EC3C5BA95C6B2 /* TrailWeight.entitlements */,
 				A53FA29756120200FA802CDD /* TrailWeightApp.swift */,
 				A29C9405A60F27D00DED5976 /* Models */,
 				22CCF262870679AC4390A095 /* Services */,
@@ -493,6 +495,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Sources/TrailWeight/TrailWeight.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;
@@ -514,6 +517,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Sources/TrailWeight/TrailWeight.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = YES;

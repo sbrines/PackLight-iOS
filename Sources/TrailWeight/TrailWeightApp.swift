@@ -10,11 +10,8 @@ struct TrailWeightApp: App {
     @State private var tripVM = TripViewModel()
     #endif
 
-    var body: some Scene {
-        WindowGroup {
-            AppRootView()
-        }
-        .modelContainer(for: [
+    let container: ModelContainer = {
+        let schema = Schema([
             GearItem.self,
             Trip.self,
             PackList.self,
@@ -23,6 +20,21 @@ struct TrailWeightApp: App {
             ResupplyPointItem.self,
             WeightSnapshot.self,
         ])
+        let config = ModelConfiguration(schema: schema, cloudKitDatabase: .automatic)
+        do {
+            return try ModelContainer(for: schema, configurations: [config])
+        } catch {
+            // CloudKit unavailable (no iCloud account) — fall back to local-only
+            let localConfig = ModelConfiguration(schema: schema)
+            return try! ModelContainer(for: schema, configurations: [localConfig])
+        }
+    }()
+
+    var body: some Scene {
+        WindowGroup {
+            AppRootView()
+        }
+        .modelContainer(container)
         #if os(macOS)
         .commands {
             TrailWeightCommands(

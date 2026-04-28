@@ -38,6 +38,13 @@ targets:
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
     dependencies:
       - package: SwiftSoup
+    entitlements:
+      path: Sources/TrailWeight/TrailWeight.entitlements
+      properties:
+        com.apple.developer.icloud-container-identifiers:
+          - iCloud.com.stephenbrines.trailweight
+        com.apple.developer.icloud-services:
+          - CloudKit
 
   TrailWeightTests:
     type: bundle.unit-test
