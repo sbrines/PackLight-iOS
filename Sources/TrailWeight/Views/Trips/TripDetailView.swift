@@ -21,8 +21,8 @@ struct TripDetailView: View {
                 LabeledContent("Status", value: trip.status.rawValue)
             }
 
-            if let packList = trip.packLists.first {
-                Section("Pack List (\(packList.items.count) items)") {
+            if let packList = trip.packLists?.first {
+                Section("Pack List (\((packList.items ?? []).count) items)") {
                     NavigationLink("View & Edit Pack List") {
                         PackListView(packList: packList)
                     }
@@ -34,7 +34,7 @@ struct TripDetailView: View {
             }
 
             Section("Resupply Points") {
-                ForEach(trip.resupplyPoints.sorted { $0.mileMarker < $1.mileMarker }) { point in
+                ForEach((trip.resupplyPoints ?? []).sorted { $0.mileMarker < $1.mileMarker }) { point in
                     NavigationLink(destination: ResupplyPointDetailView(point: point)) {
                         VStack(alignment: .leading) {
                             Text(point.locationName)

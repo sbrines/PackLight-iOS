@@ -103,12 +103,12 @@ struct SaveWeightSnapshotButton: View {
 
     var body: some View {
         Button(saved ? "Saved!" : "Save Weight", systemImage: saved ? "checkmark" : "chart.line.uptrend.xyaxis") {
-            let summary = WeightCalculator.calculate(from: packList.items)
+            let summary = WeightCalculator.calculate(from: packList.items ?? [])
             let snap = WeightSnapshot(
                 tripName: tripName,
                 baseWeightGrams: summary.baseWeightGrams,
                 totalWeightGrams: summary.totalWeightGrams,
-                itemCount: packList.items.count
+                itemCount: (packList.items ?? []).count
             )
             context.insert(snap)
             try? context.save()

@@ -17,7 +17,7 @@ final class ResupplyPoint {
     var trip: Trip?
 
     @Relationship(deleteRule: .cascade, inverse: \ResupplyPointItem.resupplyPoint)
-    var items: [ResupplyPointItem] = []
+    var items: [ResupplyPointItem]?
 
     init(
         locationName: String,
@@ -42,7 +42,7 @@ final class ResupplyPoint {
     }
 
     var totalBoxWeightGrams: Double {
-        items.reduce(0.0) { $0 + $1.lineWeightGrams }
+        (items ?? []).reduce(0.0) { $0 + $1.lineWeightGrams }
     }
 
     var statusLabel: String {

@@ -52,7 +52,7 @@ enum LighterpackService {
     }
 
     static func exportPackList(packList: PackList) -> String {
-        let items = packList.items.compactMap { packItem -> String? in
+        let items = (packList.items ?? []).compactMap { packItem -> String? in
             guard let gear = packItem.gearItem else { return nil }
             let fields: [String] = [
                 csv(gear.name),

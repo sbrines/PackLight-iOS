@@ -53,10 +53,10 @@ final class Trip {
     var createdAt: Date = Date()
 
     @Relationship(deleteRule: .cascade, inverse: \PackList.trip)
-    var packLists: [PackList] = []
+    var packLists: [PackList]?
 
     @Relationship(deleteRule: .cascade, inverse: \ResupplyPoint.trip)
-    var resupplyPoints: [ResupplyPoint] = []
+    var resupplyPoints: [ResupplyPoint]?
 
     var terrain: TerrainType {
         get { TerrainType(rawValue: terrainRawValue) ?? .mixed }

@@ -9,7 +9,7 @@ struct PackListView: View {
     @State private var showingAddGear = false
 
     private var grouped: [(category: GearCategory, items: [PackListItem])] {
-        let dict = Dictionary(grouping: packList.items) { item in
+        let dict = Dictionary(grouping: packList.items ?? []) { item in
             item.gearItem?.category ?? .other
         }
         return dict.map { (category: $0.key, items: $0.value) }
@@ -110,7 +110,7 @@ struct GearPickerView: View {
     @Environment(\.dismiss) private var dismiss
 
     private var unpacked: [GearItem] {
-        let packedIDs = Set(packList.items.compactMap { $0.gearItem?.id })
+        let packedIDs = Set((packList.items ?? []).compactMap { $0.gearItem?.id })
         return allGear.filter { !packedIDs.contains($0.id) }
     }
 

@@ -19,8 +19,8 @@ struct ResupplyPointDetailView: View {
                 TextField("Shipping address", text: $point.shippingAddress, axis: .vertical)
                 Toggle("Hold for Pickup", isOn: $point.holdForPickup)
             }
-            Section("Contents (\(point.items.count) items)") {
-                ForEach(point.items) { item in
+            Section("Contents (\((point.items ?? []).count) items)") {
+                ForEach(point.items ?? []) { item in
                     HStack {
                         Text(item.gearItem?.name ?? "Unknown")
                         Spacer()

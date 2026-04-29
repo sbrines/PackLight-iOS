@@ -11,7 +11,7 @@ final class PackList {
     var trip: Trip?
 
     @Relationship(deleteRule: .cascade, inverse: \PackListItem.packList)
-    var items: [PackListItem] = []
+    var items: [PackListItem]?
 
     init(name: String, notes: String = "", trip: Trip? = nil) {
         self.id = UUID()
@@ -22,13 +22,13 @@ final class PackList {
     }
 
     var totalWeightGrams: Double {
-        items.reduce(0.0) { sum, item in
+        (items ?? []).reduce(0.0) { sum, item in
             sum + (item.gearItem?.weightGrams ?? 0) * Double(item.packedQuantity)
         }
     }
 
     var baseWeightGrams: Double {
-        items.reduce(0.0) { sum, item in
+        (items ?? []).reduce(0.0) { sum, item in
             let isConsumable = item.gearItem?.isConsumable ?? false
             guard !isConsumable && !item.isWorn else { return sum }
             return sum + (item.gearItem?.weightGrams ?? 0) * Double(item.packedQuantity)
@@ -36,14 +36,14 @@ final class PackList {
     }
 
     var packWeightGrams: Double {
-        items.reduce(0.0) { sum, item in
+        (items ?? []).reduce(0.0) { sum, item in
             guard !item.isWorn else { return sum }
             return sum + (item.gearItem?.weightGrams ?? 0) * Double(item.packedQuantity)
         }
     }
 
     var wornWeightGrams: Double {
-        items.reduce(0.0) { sum, item in
+        (items ?? []).reduce(0.0) { sum, item in
             guard item.isWorn else { return sum }
             return sum + (item.gearItem?.weightGrams ?? 0) * Double(item.packedQuantity)
         }

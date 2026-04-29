@@ -17,7 +17,7 @@ final class WeightViewModel {
     var displayUnit: WeightUnit = .ounces
 
     func recalculate() {
-        guard let items = selectedTrip?.packLists.first?.items else {
+        guard let items = selectedTrip?.packLists?.first?.items else {
             summary = .empty
             return
         }

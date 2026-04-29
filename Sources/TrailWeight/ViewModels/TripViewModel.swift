@@ -42,21 +42,21 @@ final class TripViewModel {
     @discardableResult
     func addGearItem(_ gear: GearItem, to packList: PackList, quantity: Int = 1,
                      isWorn: Bool = false, context: ModelContext) -> PackListItem {
-        if let existing = packList.items.first(where: { $0.gearItem?.id == gear.id }) {
+        if let existing = (packList.items ?? []).first(where: { $0.gearItem?.id == gear.id }) {
             existing.packedQuantity = min(existing.packedQuantity + quantity, gear.quantityOwned)
             try? context.save()
             return existing
         }
         let item = PackListItem(gearItem: gear, packList: packList,
                                 packedQuantity: min(quantity, gear.quantityOwned), isWorn: isWorn)
-        packList.items.append(item)
+        packList.items = (packList.items ?? []) + [item]
         context.insert(item)
         try? context.save()
         return item
     }
 
     func removeItem(_ item: PackListItem, from packList: PackList, context: ModelContext) {
-        packList.items.removeAll { $0.id == item.id }
+        packList.items?.removeAll { $0.id == item.id }
         context.delete(item)
         try? context.save()
     }
@@ -65,7 +65,7 @@ final class TripViewModel {
     func addResupplyPoint(to trip: Trip, locationName: String,
                           mileMarker: Double, context: ModelContext) -> ResupplyPoint {
         let point = ResupplyPoint(locationName: locationName, mileMarker: mileMarker, trip: trip)
-        trip.resupplyPoints.append(point)
+        trip.resupplyPoints = (trip.resupplyPoints ?? []) + [point]
         context.insert(point)
         try? context.save()
         return point

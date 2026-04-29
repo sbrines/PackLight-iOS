@@ -17,10 +17,10 @@ final class GearItem {
     var updatedAt: Date = Date()
 
     @Relationship(deleteRule: .nullify, inverse: \PackListItem.gearItem)
-    var packListItems: [PackListItem] = []
+    var packListItems: [PackListItem]?
 
     @Relationship(deleteRule: .nullify, inverse: \ResupplyPointItem.gearItem)
-    var resupplyPointItems: [ResupplyPointItem] = []
+    var resupplyPointItems: [ResupplyPointItem]?
 
     var category: GearCategory {
         get { GearCategory(rawValue: categoryRawValue) ?? .other }
