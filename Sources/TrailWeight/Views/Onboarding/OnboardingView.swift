@@ -37,7 +37,6 @@ struct OnboardingView: View {
     private var isLastPage: Bool { page == totalPages - 1 }
 
     var body: some View {
-        @Bindable var settings = appSettings
         VStack(spacing: 0) {
             TabView(selection: $page) {
                 ForEach(Array(infoPages.enumerated()), id: \.offset) { index, p in
@@ -45,7 +44,10 @@ struct OnboardingView: View {
                 }
 
                 // Unit picker page
-                UnitPickerPage(selectedUnit: $settings.weightUnit).tag(infoPages.count)
+                UnitPickerPage(selectedUnit: Binding(
+                    get: { appSettings.weightUnit },
+                    set: { appSettings.weightUnit = $0 }
+                )).tag(infoPages.count)
             }
             #if os(iOS)
             .tabViewStyle(.page(indexDisplayMode: .always))

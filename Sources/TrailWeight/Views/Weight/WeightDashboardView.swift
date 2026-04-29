@@ -9,7 +9,6 @@ struct WeightDashboardView: View {
 
     var body: some View {
         @Bindable var vm = viewModel
-        @Bindable var settings = appSettings
         List {
             Section("Select Trip") {
                 Picker("Trip", selection: $vm.selectedTrip) {
@@ -64,7 +63,10 @@ struct WeightDashboardView: View {
                 }
 
                 Section("Display Unit") {
-                    Picker("Unit", selection: $settings.weightUnit) {
+                    Picker("Unit", selection: Binding(
+                        get: { appSettings.weightUnit },
+                        set: { appSettings.weightUnit = $0 }
+                    )) {
                         ForEach(WeightUnit.allCases) { u in
                             Text(u.rawValue).tag(u)
                         }

@@ -4,10 +4,12 @@ struct SettingsView: View {
     @Environment(AppSettings.self) private var appSettings
 
     var body: some View {
-        @Bindable var settings = appSettings
         List {
             Section("Display Units") {
-                Picker("Weight unit", selection: $settings.weightUnit) {
+                Picker("Weight unit", selection: Binding(
+                    get: { appSettings.weightUnit },
+                    set: { appSettings.weightUnit = $0 }
+                )) {
                     ForEach(WeightUnit.allCases) { unit in
                         Text(unitLabel(unit)).tag(unit)
                     }
