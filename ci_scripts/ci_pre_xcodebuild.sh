@@ -6,6 +6,6 @@ set -e
 # CI_BUILD_NUMBER is provided by Xcode Cloud and increments automatically.
 if [[ -n "$CI_BUILD_NUMBER" ]]; then
     /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $CI_BUILD_NUMBER" \
-        "$CI_WORKSPACE/Sources/TrailWeight/Info.plist"
+        "$CI_PRIMARY_REPOSITORY_PATH/Sources/TrailWeight/Info.plist"
     echo "Set CFBundleVersion to $CI_BUILD_NUMBER"
 fi
