@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0037081D2F321D88857456CD /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AC5154215EC3A1600809D7D /* AppSettings.swift */; };
 		0160D13B78A6F8A3D3DE2871 /* AppRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78252FF5D75B31B924D44BE6 /* AppRootView.swift */; };
 		17C771520485C5F996F93EDC /* WeightCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4B003A52A2824588082CDC /* WeightCalculator.swift */; };
 		1E3294498DEDB42AC2C272FB /* PackListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66AD0443902764FFAC16EF8 /* PackListView.swift */; };
@@ -14,6 +15,7 @@
 		2C22281F2CA27DA6685FB584 /* GearListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0071884E8F70BB3AD1B4597 /* GearListView.swift */; };
 		3C104C38C73298EB3B334C7E /* AddTripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36579402966D45DB642509F /* AddTripView.swift */; };
 		3C7CF2E2C858CF79CAF8ECEF /* GearRecommendationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCFC26722D80C41DDB44A40 /* GearRecommendationTests.swift */; };
+		47272122496EE7741BF74CB2 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6DA8B3EB4612918EC35F57 /* SettingsView.swift */; };
 		47A43927447F5CD69030925B /* TrailWeightApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53FA29756120200FA802CDD /* TrailWeightApp.swift */; };
 		4E8BD174F657B886453967E1 /* WeightDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B3F9C01343944CD0B4A03FE /* WeightDashboardView.swift */; };
 		53242E1E920E4DE954B86DF0 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 050705B0E6A1EE3B1618B566 /* SwiftSoup */; };
@@ -64,6 +66,7 @@
 		2B72F30D8A3177ED02B07D99 /* GearViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GearViewModel.swift; sourceTree = "<group>"; };
 		2B9245966E4662B7B4D5FCFB /* WeightParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightParserTests.swift; sourceTree = "<group>"; };
 		35B7DE5D0DD2C178DCD2AF29 /* URLMetadataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLMetadataFetcher.swift; sourceTree = "<group>"; };
+		3AC5154215EC3A1600809D7D /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		3D4B003A52A2824588082CDC /* WeightCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightCalculator.swift; sourceTree = "<group>"; };
 		42A53D677F6C73A81F3C2366 /* LighterpackServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LighterpackServiceTests.swift; sourceTree = "<group>"; };
 		4577C0002C2B1C5E3F67773E /* WeightViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightViewModel.swift; sourceTree = "<group>"; };
@@ -86,6 +89,7 @@
 		A330F501339F1E7A9A665779 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A53FA29756120200FA802CDD /* TrailWeightApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailWeightApp.swift; sourceTree = "<group>"; };
 		AE57A84ED5B6313641F7BB44 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		AE6DA8B3EB4612918EC35F57 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		B0071884E8F70BB3AD1B4597 /* GearListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GearListView.swift; sourceTree = "<group>"; };
 		B605D4139D6EB5765A9A2F64 /* WeightCalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightCalculatorTests.swift; sourceTree = "<group>"; };
 		B9777A3E050581ADE66CAF33 /* ResupplyPointDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResupplyPointDetailView.swift; sourceTree = "<group>"; };
@@ -121,10 +125,19 @@
 				45CF47097E35FE1460FBEDFB /* Gear */,
 				F156EC8D669CF9F07359C008 /* Mac */,
 				9C59331B1C9BCC5CC4D95FB0 /* Onboarding */,
+				09B18079182796B4F3317E66 /* Settings */,
 				B4B706BB046982BAE2B23799 /* Trips */,
 				80DEC976CEC72E7AAE2A28B0 /* Weight */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		09B18079182796B4F3317E66 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				AE6DA8B3EB4612918EC35F57 /* SettingsView.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		22CCF262870679AC4390A095 /* Services */ = {
@@ -196,6 +209,7 @@
 		A29C9405A60F27D00DED5976 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				3AC5154215EC3A1600809D7D /* AppSettings.swift */,
 				68C8F34132497F5E11AEA0A5 /* GearCategory.swift */,
 				9C424EF772F029D15CBEA7EE /* GearItem.swift */,
 				491DF9E3235E784AC472CEDF /* PackList.swift */,
@@ -371,6 +385,7 @@
 				668BD0CE8705AB3D8CB873FD /* AddGearItemView.swift in Sources */,
 				3C104C38C73298EB3B334C7E /* AddTripView.swift in Sources */,
 				0160D13B78A6F8A3D3DE2871 /* AppRootView.swift in Sources */,
+				0037081D2F321D88857456CD /* AppSettings.swift in Sources */,
 				5F96B92D85DD437F1261BF38 /* ContentView.swift in Sources */,
 				FF289D045C68661A31E5267E /* GearCategory.swift in Sources */,
 				E95878FBB17A47DD4C30DA6F /* GearItem.swift in Sources */,
@@ -388,6 +403,7 @@
 				77BB4FBEBC267970FA88F48A /* RecommendationsView.swift in Sources */,
 				E8B259645707777F77DE6FBD /* ResupplyPoint.swift in Sources */,
 				F2C4B246A087519E4323C83D /* ResupplyPointDetailView.swift in Sources */,
+				47272122496EE7741BF74CB2 /* SettingsView.swift in Sources */,
 				47A43927447F5CD69030925B /* TrailWeightApp.swift in Sources */,
 				D0EB1ABE6FB3DBE3D487B594 /* Trip.swift in Sources */,
 				9FBB857949B895FF723A86F1 /* TripDetailView.swift in Sources */,
