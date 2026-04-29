@@ -54,10 +54,4 @@ final class GearItem {
 
     var weightOunces: Double { weightGrams * 0.035274 }
     var weightPounds: Double { weightGrams * 0.00220462 }
-
-    var displayWeight: String {
-        weightGrams >= 1000
-            ? String(format: "%.2f kg", weightGrams / 1000)
-            : String(format: "%.0f g", weightGrams)
-    }
 }

@@ -160,6 +160,7 @@ struct ImportPreviewView: View {
     let rows: [LighterpackRow]
     let onImport: ([LighterpackRow]) -> Void
     @Environment(\.dismiss) private var dismiss
+    @Environment(AppSettings.self) private var appSettings
 
     @State private var selected: Set<Int> = []
 
@@ -184,7 +185,7 @@ struct ImportPreviewView: View {
                         HStack {
                             Text(row.category.isEmpty ? "Uncategorized" : row.category)
                             Text("·")
-                            Text(WeightParser.displayString(row.weightGrams))
+                            Text(appSettings.format(row.weightGrams))
                         }
                         .font(.caption)
                         .foregroundStyle(.secondary)
@@ -212,7 +213,7 @@ struct ImportPreviewView: View {
                             Text("\(selected.count) of \(rows.count) selected")
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
-                            Text(WeightParser.displayString(selectedWeight))
+                            Text(appSettings.format(selectedWeight))
                                 .font(.caption.monospacedDigit())
                                 .foregroundStyle(.secondary)
                         }

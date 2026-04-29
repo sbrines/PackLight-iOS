@@ -54,6 +54,7 @@ struct GearListView: View {
 
 private struct GearItemRow: View {
     let item: GearItem
+    @Environment(AppSettings.self) private var appSettings
 
     var body: some View {
         HStack {
@@ -67,7 +68,7 @@ private struct GearItemRow: View {
                 }
             }
             Spacer()
-            Text(item.displayWeight)
+            Text(appSettings.format(item.weightGrams))
                 .font(.caption.monospacedDigit())
                 .foregroundStyle(.secondary)
         }

@@ -108,6 +108,7 @@ struct GearPickerView: View {
     @Environment(TripViewModel.self) private var viewModel
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
+    @Environment(AppSettings.self) private var appSettings
 
     private var unpacked: [GearItem] {
         let packedIDs = Set((packList.items ?? []).compactMap { $0.gearItem?.id })
@@ -125,7 +126,7 @@ struct GearPickerView: View {
                         Image(systemName: gear.category.symbolName).foregroundStyle(gear.category.color)
                         VStack(alignment: .leading) {
                             Text(gear.name)
-                            Text(gear.displayWeight).font(.caption).foregroundStyle(.secondary) // uses model default; formatter via appSettings in detail
+                            Text(appSettings.format(gear.weightGrams)).font(.caption).foregroundStyle(.secondary)
                         }
                     }
                 }
