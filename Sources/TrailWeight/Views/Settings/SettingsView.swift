@@ -5,7 +5,7 @@ struct SettingsView: View {
 
     var body: some View {
         List {
-            Section("Display Units") {
+            Section {
                 Picker("Weight unit", selection: Binding(
                     get: { appSettings.weightUnit },
                     set: { appSettings.weightUnit = $0 }
@@ -16,6 +16,8 @@ struct SettingsView: View {
                 }
                 .pickerStyle(.inline)
                 .labelsHidden()
+            } header: {
+                Text("Display Units")
             } footer: {
                 Text("Applies everywhere weight is shown in the app.")
             }
