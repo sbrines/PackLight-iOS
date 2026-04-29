@@ -21,12 +21,12 @@ struct WeightHistoryView: View {
                         Chart(snapshots) { snap in
                             LineMark(
                                 x: .value("Date", snap.recordedAt),
-                                y: .value("Base (g)", snap.baseWeightGrams)
+                                y: .value("Base", appSettings.convert(snap.baseWeightGrams))
                             )
                             .foregroundStyle(.blue)
                             PointMark(
                                 x: .value("Date", snap.recordedAt),
-                                y: .value("Base (g)", snap.baseWeightGrams)
+                                y: .value("Base", appSettings.convert(snap.baseWeightGrams))
                             )
                             .foregroundStyle(.blue)
                             .annotation(position: .top) {
@@ -36,7 +36,7 @@ struct WeightHistoryView: View {
                             }
 
                             // SUL threshold line
-                            RuleMark(y: .value("SUL", 2_270))
+                            RuleMark(y: .value("SUL", appSettings.convert(2_270)))
                                 .foregroundStyle(.green.opacity(0.4))
                                 .lineStyle(StrokeStyle(dash: [4]))
                                 .annotation(position: .trailing) {
@@ -44,7 +44,7 @@ struct WeightHistoryView: View {
                                 }
 
                             // UL threshold line
-                            RuleMark(y: .value("UL", 4_540))
+                            RuleMark(y: .value("UL", appSettings.convert(4_540)))
                                 .foregroundStyle(.orange.opacity(0.4))
                                 .lineStyle(StrokeStyle(dash: [4]))
                                 .annotation(position: .trailing) {
@@ -52,7 +52,7 @@ struct WeightHistoryView: View {
                                 }
                         }
                         .frame(height: 200)
-                        .chartYAxisLabel("Grams")
+                        .chartYAxisLabel(appSettings.unitLabel)
                     }
 
                     Section("History") {
