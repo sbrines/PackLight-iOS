@@ -1,13 +1,16 @@
-import SwiftUI
+import Foundation
+
+private let weightUnitKey = "weightUnit"
 
 @Observable
 final class AppSettings {
-    @ObservationIgnored
-    @AppStorage("weightUnit") private var _weightUnit: String = WeightUnit.ounces.rawValue
-
     var weightUnit: WeightUnit {
-        get { WeightUnit(rawValue: _weightUnit) ?? .ounces }
-        set { _weightUnit = newValue.rawValue }
+        didSet { UserDefaults.standard.set(weightUnit.rawValue, forKey: weightUnitKey) }
+    }
+
+    init() {
+        let stored = UserDefaults.standard.string(forKey: weightUnitKey) ?? ""
+        weightUnit = WeightUnit(rawValue: stored) ?? .ounces
     }
 
     func format(_ grams: Double) -> String {

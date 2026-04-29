@@ -17,6 +17,7 @@
 		3C7CF2E2C858CF79CAF8ECEF /* GearRecommendationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FCFC26722D80C41DDB44A40 /* GearRecommendationTests.swift */; };
 		47272122496EE7741BF74CB2 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6DA8B3EB4612918EC35F57 /* SettingsView.swift */; };
 		47A43927447F5CD69030925B /* TrailWeightApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53FA29756120200FA802CDD /* TrailWeightApp.swift */; };
+		47F2ED4819AA5813BF2EC6A4 /* AppSettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E8664EA0F2A17FF53114C9 /* AppSettingsTests.swift */; };
 		4E8BD174F657B886453967E1 /* WeightDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B3F9C01343944CD0B4A03FE /* WeightDashboardView.swift */; };
 		53242E1E920E4DE954B86DF0 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = 050705B0E6A1EE3B1618B566 /* SwiftSoup */; };
 		5F96B92D85DD437F1261BF38 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CB1E6297F6C9189844D937 /* ContentView.swift */; };
@@ -102,6 +103,7 @@
 		EE9AF4626325F6E7054077FF /* TripDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDetailView.swift; sourceTree = "<group>"; };
 		F0C923A1433EC3C5BA95C6B2 /* TrailWeight.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TrailWeight.entitlements; sourceTree = "<group>"; };
 		F38F22811BB16B2E65681F1F /* TripListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripListView.swift; sourceTree = "<group>"; };
+		F4E8664EA0F2A17FF53114C9 /* AppSettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettingsTests.swift; sourceTree = "<group>"; };
 		FB4125BCE4B6805FEA30AE51 /* WeightSnapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightSnapshot.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -246,6 +248,7 @@
 		BFBB10CB99FCA52D0E8B174F /* TrailWeightTests */ = {
 			isa = PBXGroup;
 			children = (
+				F4E8664EA0F2A17FF53114C9 /* AppSettingsTests.swift */,
 				5FCFC26722D80C41DDB44A40 /* GearRecommendationTests.swift */,
 				42A53D677F6C73A81F3C2366 /* LighterpackServiceTests.swift */,
 				B605D4139D6EB5765A9A2F64 /* WeightCalculatorTests.swift */,
@@ -371,6 +374,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				47F2ED4819AA5813BF2EC6A4 /* AppSettingsTests.swift in Sources */,
 				3C7CF2E2C858CF79CAF8ECEF /* GearRecommendationTests.swift in Sources */,
 				D8A8DA47755EB4505CDAD32D /* LighterpackServiceTests.swift in Sources */,
 				70398C7F0BBCC109DAB9A950 /* WeightCalculatorTests.swift in Sources */,
