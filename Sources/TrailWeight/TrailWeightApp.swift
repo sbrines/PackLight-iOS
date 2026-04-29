@@ -12,7 +12,9 @@ struct TrailWeightApp: App {
     @State private var tripVM = TripViewModel()
     #endif
 
-    let container: ModelContainer = {
+    let container: ModelContainer = Self.makeContainer()
+
+    private static func makeContainer() -> ModelContainer {
         let schema = Schema([
             GearItem.self,
             Trip.self,
@@ -22,15 +24,29 @@ struct TrailWeightApp: App {
             ResupplyPointItem.self,
             WeightSnapshot.self,
         ])
-        let config = ModelConfiguration(schema: schema, cloudKitDatabase: .automatic)
-        do {
-            return try ModelContainer(for: schema, configurations: [config])
-        } catch {
-            // CloudKit unavailable (no iCloud account) — fall back to local-only
-            let localConfig = ModelConfiguration(schema: schema)
-            return try! ModelContainer(for: schema, configurations: [localConfig])
+
+        // In-memory store for unit tests — no persistence needed
+        if ProcessInfo.processInfo.environment["XCTestConfigurationFilePath"] != nil {
+            return makeMemoryContainer(schema: schema)
         }
-    }()
+
+        // CloudKit with local fallback
+        let cloudConfig = ModelConfiguration(schema: schema, cloudKitDatabase: .automatic)
+        if let c = try? ModelContainer(for: schema, configurations: [cloudConfig]) { return c }
+
+        let localConfig = ModelConfiguration(schema: schema)
+        if let c = try? ModelContainer(for: schema, configurations: [localConfig]) { return c }
+
+        return makeMemoryContainer(schema: schema)
+    }
+
+    private static func makeMemoryContainer(schema: Schema) -> ModelContainer {
+        let config = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
+        guard let c = try? ModelContainer(for: schema, configurations: [config]) else {
+            preconditionFailure("Unable to create ModelContainer")
+        }
+        return c
+    }
 
     var body: some Scene {
         WindowGroup {

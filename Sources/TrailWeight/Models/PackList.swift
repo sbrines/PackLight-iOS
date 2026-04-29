@@ -3,10 +3,10 @@ import SwiftData
 
 @Model
 final class PackList {
-    var id: UUID
-    var name: String
-    var notes: String
-    var createdAt: Date
+    var id: UUID = UUID()
+    var name: String = ""
+    var notes: String = ""
+    var createdAt: Date = Date()
 
     var trip: Trip?
 

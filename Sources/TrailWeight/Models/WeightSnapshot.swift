@@ -4,12 +4,12 @@ import SwiftData
 // Records base weight at a point in time, enabling trend tracking across trips
 @Model
 final class WeightSnapshot {
-    var id: UUID
-    var tripName: String
-    var baseWeightGrams: Double
-    var totalWeightGrams: Double
-    var itemCount: Int
-    var recordedAt: Date
+    var id: UUID = UUID()
+    var tripName: String = ""
+    var baseWeightGrams: Double = 0
+    var totalWeightGrams: Double = 0
+    var itemCount: Int = 0
+    var recordedAt: Date = Date()
 
     init(tripName: String, baseWeightGrams: Double, totalWeightGrams: Double, itemCount: Int) {
         self.id = UUID()

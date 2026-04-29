@@ -3,16 +3,16 @@ import SwiftData
 
 @Model
 final class ResupplyPoint {
-    var id: UUID
-    var locationName: String
-    var mileMarker: Double
-    var notes: String
-    var shippingAddress: String
-    var holdForPickup: Bool
+    var id: UUID = UUID()
+    var locationName: String = ""
+    var mileMarker: Double = 0
+    var notes: String = ""
+    var shippingAddress: String = ""
+    var holdForPickup: Bool = false
     var estimatedArrivalDate: Date?
-    var isSent: Bool
-    var isPickedUp: Bool
-    var createdAt: Date
+    var isSent: Bool = false
+    var isPickedUp: Bool = false
+    var createdAt: Date = Date()
 
     var trip: Trip?
 
@@ -54,10 +54,10 @@ final class ResupplyPoint {
 
 @Model
 final class ResupplyPointItem {
-    var id: UUID
-    var quantity: Int
-    var notes: String
-    var addedAt: Date
+    var id: UUID = UUID()
+    var quantity: Int = 1
+    var notes: String = ""
+    var addedAt: Date = Date()
 
     var resupplyPoint: ResupplyPoint?
     var gearItem: GearItem?

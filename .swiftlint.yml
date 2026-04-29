@@ -41,5 +41,6 @@ identifier_name:
     - oz
     - g
 
-force_cast: warning
-force_try: warning
+force_cast: error
+force_try: error
+force_unwrapping: error

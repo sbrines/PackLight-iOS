@@ -3,11 +3,11 @@ import SwiftData
 
 @Model
 final class PackListItem {
-    var id: UUID
-    var packedQuantity: Int
-    var isWorn: Bool
-    var notes: String
-    var sortOrder: Int
+    var id: UUID = UUID()
+    var packedQuantity: Int = 1
+    var isWorn: Bool = false
+    var notes: String = ""
+    var sortOrder: Int = 0
 
     var packList: PackList?
     var gearItem: GearItem?

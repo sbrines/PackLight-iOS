@@ -3,18 +3,18 @@ import SwiftData
 
 @Model
 final class GearItem {
-    var id: UUID
-    var name: String
-    var brand: String
-    var categoryRawValue: String
-    var weightGrams: Double
-    var quantityOwned: Int
-    var isConsumable: Bool
-    var notes: String
-    var purchaseURL: String
-    var imageURL: String
-    var createdAt: Date
-    var updatedAt: Date
+    var id: UUID = UUID()
+    var name: String = ""
+    var brand: String = ""
+    var categoryRawValue: String = GearCategory.other.rawValue
+    var weightGrams: Double = 0
+    var quantityOwned: Int = 1
+    var isConsumable: Bool = false
+    var notes: String = ""
+    var purchaseURL: String = ""
+    var imageURL: String = ""
+    var createdAt: Date = Date()
+    var updatedAt: Date = Date()
 
     @Relationship(deleteRule: .nullify, inverse: \PackListItem.gearItem)
     var packListItems: [PackListItem] = []

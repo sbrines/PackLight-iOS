@@ -24,7 +24,9 @@ struct SettingsView: View {
 
             Section("About") {
                 LabeledContent("Version", value: Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0")
-                Link("Privacy Policy", destination: URL(string: "https://sbrines.github.io/TrailWeight-Web/privacy.html")!)
+                if let privacyURL = URL(string: "https://sbrines.github.io/TrailWeight-Web/privacy.html") {
+                    Link("Privacy Policy", destination: privacyURL)
+                }
             }
         }
         .navigationTitle("Settings")

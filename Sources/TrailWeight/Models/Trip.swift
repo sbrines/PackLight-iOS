@@ -37,20 +37,20 @@ enum TripStatus: String, Codable, CaseIterable, Identifiable {
 
 @Model
 final class Trip {
-    var id: UUID
-    var name: String
-    var notes: String
-    var trailName: String
-    var startLocation: String
-    var endLocation: String
+    var id: UUID = UUID()
+    var name: String = ""
+    var notes: String = ""
+    var trailName: String = ""
+    var startLocation: String = ""
+    var endLocation: String = ""
     var startDate: Date?
     var endDate: Date?
-    var distanceMiles: Double
-    var maxElevationFeet: Int
-    var minElevationFeet: Int
-    var terrainRawValue: String
-    var statusRawValue: String
-    var createdAt: Date
+    var distanceMiles: Double = 0
+    var maxElevationFeet: Int = 0
+    var minElevationFeet: Int = 0
+    var terrainRawValue: String = TerrainType.mixed.rawValue
+    var statusRawValue: String = TripStatus.planning.rawValue
+    var createdAt: Date = Date()
 
     @Relationship(deleteRule: .cascade, inverse: \PackList.trip)
     var packLists: [PackList] = []
